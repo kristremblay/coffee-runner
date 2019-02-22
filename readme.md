@@ -1,0 +1,14 @@
+## Coffee Runner
+*Coffee is the lifeblood of the office.  Occasionally, when the office coffee maker just can't satisfy, a noble soul may
+venture out into the wild to seek adequate caffeination.  This age-old practice is known colloquially as the Coffee Run,
+and this application seeks to aid in keeping the tradition strong.*
+
+### Purpose
+This demo application uses various web technologies to allow users to schedule or subscribe to coffee runs. Realistically,
+it is best suited for small groups who just want a cup of the good stuff.
+
+### Tech Profile
+* PHP 7 with Laravel 5.7
+* React 16.8
+* SQLite
+* Slack API
