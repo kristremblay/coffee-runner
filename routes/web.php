@@ -18,8 +18,17 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::middleware([/*'auth:web'*/])->group(function(){
+Route::middleware(['auth:web'])->group(function(){
     Route::prefix('coffee-runs')->group(function(){
        Route::get('/', 'CoffeeRunController@index')->name('coffee-runs.index');
+       Route::post('/store', 'CoffeeRunController@store')->name('cofffee-runs.store');
+    });
+
+    Route::prefix('/user')->group(function(){
+        Route::get('/info', function(){
+            return App\User::select('id', 'name', 'email')
+                ->where('id', auth()->user()->id)
+                ->first();
+        });
     });
 });

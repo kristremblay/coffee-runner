@@ -2,51 +2,31 @@
 
 namespace Tests\Feature;
 
+use Carbon\Carbon;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Tests\TestCase;
 
 use App\CoffeeRun;
+use App\User;
 
 class CoffeeRunTest extends TestCase
 {
-    use DatabaseMigrations;
-
-    protected const coffeeRunLimit = 10;
-
-    protected function setUp()
-    {
-        parent::setUp();
-        factory(CoffeeRun::class, self::coffeeRunLimit)->create();
-    }
-
-    public function testUserCanGetListOfCoffeeRuns()
-    {
-        $response = $this->json('GET', '/coffee-runs');
-
-        $response->assertJsonCount(self::coffeeRunLimit);
-
-        $response->assertJsonStructure([
-            '*' => [
-                'id',
-                'title',
-                'ends_at',
-                'status',
-                'user' => [
-                    'id',
-                    'name',
-                ],
-            ],
-        ]);
-    }
-
     public function testUserCanCreateCoffeeRun()
     {
         $title = 'Getting the Good Stuff';
 
-        $coffeeRun = factory(CoffeeRun::class)->create([
+        $response = $this->post('/coffee-runs/store', [
             'title' => $title,
+            'ends_at' => Carbon::now()->addMinutes(30),
+            'slots' => 5,
         ]);
 
-        $this->assertEquals($title, CoffeeRun::find($coffeeRun->id)->pluck('title'));
+        $response->assertJsonStructure([
+            'id',
+            'user_id',
+            'title',
+            'ends_at',
+        ]);
     }
 }

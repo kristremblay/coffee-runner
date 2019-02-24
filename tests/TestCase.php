@@ -2,22 +2,20 @@
 
 namespace Tests;
 
+use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 use App\User;
 
 abstract class TestCase extends BaseTestCase
 {
-    use CreatesApplication;
+    use CreatesApplication, DatabaseMigrations;
 
     protected function setUp()
     {
         parent::setUp();
-        if(User::count() > 0){
-            $user = User::all()->first();
-        }
-        else{
-            $user = factory(User::class)->create(['name' => 'Coffee King']);
-        }
+
+        $this->artisan("db:seed");
+        $user = User::all()->first();
 
         $this->be($user);
     }

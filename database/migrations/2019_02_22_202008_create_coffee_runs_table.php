@@ -18,7 +18,7 @@ class CreateCoffeeRunsTable extends Migration
             $table->unsignedInteger('user_id');
             $table->text('title');
             $table->timestamp('ends_at');
-            $table->boolean('status')->default(false);
+            $table->unsignedInteger('slots');
             $table->timestamps();
         });
 

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\CoffeeRun;
+use App\Actions\CreateCoffeeRun;
+use App\Http\Requests\StoreCoffeeRunRequest;
 use Illuminate\Http\Request;
 
 class CoffeeRunController extends Controller
@@ -15,8 +17,8 @@ class CoffeeRunController extends Controller
     public function index()
     {
         return CoffeeRun::with("user:id,name")
-            ->select('id', 'user_id', 'title', 'ends_at', 'status')
-            ->where('status', '=', true)
+            ->select('id', 'user_id', 'title', 'ends_at', 'slots')
+            ->orderBy('ends_at', 'ASC')
             ->get();
     }
 
@@ -33,12 +35,13 @@ class CoffeeRunController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param StoreCoffeeRunRequest $request
+     * @param CreateCoffeeRun $action
+     * @return CoffeeRun
      */
-    public function store(Request $request)
+    public function store(StoreCoffeeRunRequest $request, CreateCoffeeRun $action)
     {
-        //
+        return $action->execute($request->data);
     }
 
     /**

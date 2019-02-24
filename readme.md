@@ -7,8 +7,8 @@ and this application seeks to aid in keeping the tradition strong.*
 This demo application uses various web technologies to allow users to schedule or subscribe to coffee runs. Realistically,
 it is best suited for small groups who just want a cup of the good stuff.
 
-### Tech Profile
+### Languages/Frameworks/Etc
 * PHP 7 with Laravel 5.7
-* React 16.8
+* React 16.8 + Redux
 * SQLite
-* Slack API
+* Slack API (For coffee arrival notifications)
