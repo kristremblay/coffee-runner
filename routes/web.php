@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->to('/login');
 });
 Auth::routes();
 
@@ -25,10 +25,11 @@ Route::middleware(['auth:web'])->group(function(){
     });
 
     Route::prefix('/user')->group(function(){
+        // TODO: Extract this to a UserController method for tidyness.
         Route::get('/info', function(){
             return App\User::select('id', 'name', 'email')
                 ->where('id', auth()->user()->id)
                 ->first();
-        });
+        })->name('user.info');
     });
 });

@@ -31,9 +31,8 @@ const CoffeeRun = (props) => {
             <Card.Body onClick={toggleCollapsedActions}>
                 <Card.Title>{data.title}</Card.Title>
                 <Card.Text>
-                    {data.ends_at}
-                    <br/>
-                    { moment(data.ends_at).format("h:mm:ss") }
+                    {/** @TODO: Setup grid here and add coffee run details + countdown timer if near deadline. **/}
+                    @{ moment(data.ends_at).format("h:mm:ss") }
                 </Card.Text>
                 <Collapse in={showControls}>
                     <div>

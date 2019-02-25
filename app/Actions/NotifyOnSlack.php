@@ -6,7 +6,7 @@ use GuzzleHttp\Client;
 
 class NotifyOnSlack {
     public function __construct(){
-        //
+        // Placeholder in case action composition is required
     }
 
     /**
