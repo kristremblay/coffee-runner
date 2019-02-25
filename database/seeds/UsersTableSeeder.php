@@ -15,5 +15,10 @@ class UsersTableSeeder extends Seeder
             'name' => 'Kris Tremblay',
             'email' => 'kris@cranked.co',
         ]);
+
+        factory(App\User::class)->create([
+            'name' => 'Frank N. Stein',
+            'email' => 'XXmadscientistXX@transylvaniansmash.com',
+        ]);
     }
 }
