@@ -3,6 +3,13 @@
 venture out into the wild to seek adequate caffeination.  This age-old practice is known colloquially as the Coffee Run,
 and this application seeks to aid in keeping the tradition strong.*
 
+<p align="center">
+    <img src="https://kristremblay.com/wp-content/uploads/2019/02/coffee-runner.png" 
+    alt="Cute, isn't he?"
+    width="250" height="250"
+    >
+</p>
+
 ### Purpose
 This demo application uses various web technologies to allow users to schedule or subscribe to coffee runs. Realistically,
 it is best suited for small groups who just want a cup of the good stuff.

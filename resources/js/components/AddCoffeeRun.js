@@ -83,8 +83,9 @@ const AddCoffeeRun = (props) => {
                         <Form.Group controlId={"formGroupEndsAt"}>
                             <Form.Label>What time are you leaving?</Form.Label>
                             <DateTime
-                                onChange={handleChangeDate}
+                                onBlur={handleChangeDate}
                                 inputProps={{'required': 'required'}}
+                                defaultValue={Date.now()}
                             />
                         </Form.Group>
                         <Form.Group controlId={"formGroupSlots"}>

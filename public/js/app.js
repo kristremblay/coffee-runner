@@ -69504,10 +69504,11 @@ var AddCoffeeRun = function AddCoffeeRun(props) {
   })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_5__["Form"].Group, {
     controlId: "formGroupEndsAt"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_5__["Form"].Label, null, "What time are you leaving?"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_datetime__WEBPACK_IMPORTED_MODULE_4___default.a, {
-    onChange: handleChangeDate,
+    onBlur: handleChangeDate,
     inputProps: {
       'required': 'required'
-    }
+    },
+    defaultValue: Date.now()
   })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_5__["Form"].Group, {
     controlId: "formGroupSlots"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_5__["Form"].Label, null, "How many order slots?"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_5__["Form"].Control, {
@@ -69638,11 +69639,11 @@ var CoffeeRun = function CoffeeRun(props) {
 
   var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(false),
       _useState2 = _slicedToArray(_useState, 2),
-      showActions = _useState2[0],
-      setShowActions = _useState2[1];
+      showControls = _useState2[0],
+      setShowControls = _useState2[1];
 
   var toggleCollapsedActions = function toggleCollapsedActions() {
-    return setShowActions(!showActions);
+    return setShowControls(!showControls);
   };
 
   var handleCancelCoffeeRun = function handleCancelCoffeeRun() {}; // Creating a new order will have to be a separate component.
@@ -69672,7 +69673,7 @@ var CoffeeRun = function CoffeeRun(props) {
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["Card"].Body, {
     onClick: toggleCollapsedActions
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["Card"].Title, null, data.title), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["Card"].Text, null, data.ends_at, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), moment__WEBPACK_IMPORTED_MODULE_3___default()(data.ends_at).format("h:mm:ss")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["Collapse"], {
-    in: showActions
+    in: showControls
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, displayControls()))));
 };
 

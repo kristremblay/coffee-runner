@@ -5,9 +5,9 @@ import moment from 'moment';
 
 const CoffeeRun = (props) => {
     const { data, account } = props;
-    const [ showActions, setShowActions ] = useState(false);
+    const [ showControls, setShowControls ] = useState(false);
 
-    const toggleCollapsedActions = () => setShowActions(!showActions);
+    const toggleCollapsedActions = () => setShowControls(!showControls);
 
     const handleCancelCoffeeRun = () => {};
 
@@ -35,7 +35,7 @@ const CoffeeRun = (props) => {
                     <br/>
                     { moment(data.ends_at).format("h:mm:ss") }
                 </Card.Text>
-                <Collapse in={showActions}>
+                <Collapse in={showControls}>
                     <div>
                         { displayControls() }
                     </div>
