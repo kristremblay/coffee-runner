@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
-import { Card, Button, Collapse } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import moment from 'moment';
 import axios from 'axios';
 
 import { cancelCoffeeRun } from "../redux/actions/coffeeRunActions";
+
+
+import { Card, Button, Collapse, ListGroup, ListGroupItem, Col } from 'react-bootstrap';
 
 const CoffeeRun = (props) => {
     const { data, account, onCancelCoffeeRun } = props;
@@ -44,20 +46,23 @@ const CoffeeRun = (props) => {
     };
 
     return (
-        <Card className={'coffee-run-list-item mb-3'}>
-            <Card.Body>
-                <Card.Title onClick={toggleCollapsedActions}>{data.title}</Card.Title>
-                <Card.Text>
-                    {/** @TODO: Setup grid here and add coffee run details + countdown timer if near deadline. **/}
-                    @{ moment(data.ends_at).format("h:mm:ss") }
-                </Card.Text>
-                <Collapse in={showControls}>
-                    <div>
-                        { displayControls() }
-                    </div>
-                </Collapse>
-            </Card.Body>
-        </Card>
+        <Col sm={12} md={6} lg={4} className={"pa-3 mb-3"}>
+            <Card>
+                <Card.Body>
+                    <Card.Title>{data.title}</Card.Title>
+                    <Card.Text>
+                        ....
+                    </Card.Text>
+                </Card.Body>
+                <ListGroup className="list-group-flush">
+                    <ListGroupItem>Leaving @ { moment(data.ends_at).format("h:mm:ss") }</ListGroupItem>
+                    <ListGroupItem>Orders: 0 / { data.slots }</ListGroupItem>
+                </ListGroup>
+                <Card.Body>
+                    { displayControls() }
+                </Card.Body>
+            </Card>
+        </Col>
     );
 };
 

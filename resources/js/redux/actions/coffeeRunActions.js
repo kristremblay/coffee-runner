@@ -3,9 +3,7 @@ import {ADD_COFFEE_RUN, LOAD_COFFEE_RUNS, CANCEL_COFFEE_RUN} from './actionTypes
 export const addCoffeeRun = content => ({
     type: ADD_COFFEE_RUN,
     payload: {
-        id: content.id,
-        user_id: content.user_id,
-        title: content.title,
+        ...content,
         ends_at: content.ends_at.date
     }
 });

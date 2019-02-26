@@ -36,20 +36,13 @@ const CoffeeRunnerIndex = (props) => {
     return (
         <Container>
             <Row>
-                <Col md={4} lg={2}>
-                    <div className={"pt-3"}>
-                        <AddCoffeeRun/>
-                    </div>
+                <Col xs={12} className={"mb-3"}>
+                    { /** @TODO: This is temporary until navbar is implemented **/}
+                    <AddCoffeeRun/>
                 </Col>
-                <Col xs={12} md={8} lg={10}>
-                    <Row>
-                        <Col xs={12}>
-                            <div className={"coffee-run-list-container pt-3"}>
-                                {displayCoffeeRuns()}
-                            </div>
-                        </Col>
-                    </Row>
-                </Col>
+            </Row>
+            <Row>
+                {displayCoffeeRuns()}
             </Row>
         </Container>
     );
