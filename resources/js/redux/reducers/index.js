@@ -3,7 +3,7 @@ import coffeeRunsReducer from './coffeeRunsReducer';
 import accountReducer from './accountReducer';
 
 export default combineReducers({
-    coffeeRuns: coffeeRunsReducer,
-    account: accountReducer
+    account: accountReducer,
+    coffeeRuns: coffeeRunsReducer
 });
 

@@ -17,7 +17,7 @@ import AddCoffeeRun from '../../components/AddCoffeeRun';
 
 const CoffeeRunnerIndex = (props) => {
 
-    const { coffeeRuns, onAddCoffeeRun, onLoadCoffeeRuns } = props;
+    const { coffeeRuns, onLoadCoffeeRuns } = props;
 
     const displayCoffeeRuns = () => coffeeRuns.map(cr => <CoffeeRun data={cr} key={cr.id}/>);
 

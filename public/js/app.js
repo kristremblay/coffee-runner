@@ -69620,6 +69620,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! moment */ "./node_modules/moment/moment.js");
 /* harmony import */ var moment__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(moment__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_4__);
+/* harmony import */ var _redux_actions_coffeeRunActions__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../redux/actions/coffeeRunActions */ "./resources/js/redux/actions/coffeeRunActions.js");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
@@ -69633,9 +69636,12 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
+
+
 var CoffeeRun = function CoffeeRun(props) {
   var data = props.data,
-      account = props.account;
+      account = props.account,
+      onCancelCoffeeRun = props.onCancelCoffeeRun;
 
   var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(false),
       _useState2 = _slicedToArray(_useState, 2),
@@ -69646,7 +69652,21 @@ var CoffeeRun = function CoffeeRun(props) {
     return setShowControls(!showControls);
   };
 
-  var handleCancelCoffeeRun = function handleCancelCoffeeRun() {}; // Creating a new order will have to be a separate component.
+  var handleCancelCoffeeRun = function handleCancelCoffeeRun() {
+    var id = data.id;
+
+    if (confirm("Are you sure you want to cancel this coffee run?")) {
+      axios__WEBPACK_IMPORTED_MODULE_4___default.a.post('/coffee-runs/destroy', {
+        data: {
+          id: id
+        }
+      }).then(function (res) {
+        onCancelCoffeeRun(id);
+      }).catch(function (err) {
+        throw new Error(err);
+      });
+    }
+  }; // Creating a new order will have to be a separate component.
 
 
   var handleOpenOrderModal = function handleOpenOrderModal() {};
@@ -69659,7 +69679,7 @@ var CoffeeRun = function CoffeeRun(props) {
 
 
   var displayControls = function displayControls() {
-    return data.user.id === account.id ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["Button"], {
+    return data.user_id == account.id ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["Button"], {
       variant: "danger",
       onClick: handleCancelCoffeeRun
     }, "Cancel Run") : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_1__["Button"], {
@@ -69683,7 +69703,15 @@ var mapStateToProps = function mapStateToProps(state) {
   };
 };
 
-/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_2__["connect"])(mapStateToProps, null)(CoffeeRun));
+var mapDispatchToProps = function mapDispatchToProps(dispatch) {
+  return {
+    onCancelCoffeeRun: function onCancelCoffeeRun(id) {
+      return dispatch(Object(_redux_actions_coffeeRunActions__WEBPACK_IMPORTED_MODULE_5__["cancelCoffeeRun"])(id));
+    }
+  };
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_2__["connect"])(mapStateToProps, mapDispatchToProps)(CoffeeRun));
 
 /***/ }),
 
@@ -69715,7 +69743,6 @@ __webpack_require__.r(__webpack_exports__);
 
 var CoffeeRunnerIndex = function CoffeeRunnerIndex(props) {
   var coffeeRuns = props.coffeeRuns,
-      onAddCoffeeRun = props.onAddCoffeeRun,
       onLoadCoffeeRuns = props.onLoadCoffeeRuns;
 
   var displayCoffeeRuns = function displayCoffeeRuns() {
@@ -69801,17 +69828,19 @@ var loadAccountInfo = function loadAccountInfo(content) {
 /*!***************************************************!*\
   !*** ./resources/js/redux/actions/actionTypes.js ***!
   \***************************************************/
-/*! exports provided: ADD_COFFEE_RUN, LOAD_COFFEE_RUNS, RELOAD_COFFEE_RUNS, LOAD_ACCOUNT_INFO */
+/*! exports provided: ADD_COFFEE_RUN, CANCEL_COFFEE_RUN, LOAD_COFFEE_RUNS, RELOAD_COFFEE_RUNS, LOAD_ACCOUNT_INFO */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ADD_COFFEE_RUN", function() { return ADD_COFFEE_RUN; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CANCEL_COFFEE_RUN", function() { return CANCEL_COFFEE_RUN; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LOAD_COFFEE_RUNS", function() { return LOAD_COFFEE_RUNS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "RELOAD_COFFEE_RUNS", function() { return RELOAD_COFFEE_RUNS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "LOAD_ACCOUNT_INFO", function() { return LOAD_ACCOUNT_INFO; });
 // Coffee Runs
 var ADD_COFFEE_RUN = "ADD_COFFEE_RUN";
+var CANCEL_COFFEE_RUN = "CANCEL_COFFEE_RUN";
 var LOAD_COFFEE_RUNS = "LOAD_COFFEE_RUNS";
 var RELOAD_COFFEE_RUNS = "RELOAD_COFFEE_RUNS"; // Account/User
 
@@ -69823,13 +69852,14 @@ var LOAD_ACCOUNT_INFO = "LOAD_ACCOUNT_INFO";
 /*!********************************************************!*\
   !*** ./resources/js/redux/actions/coffeeRunActions.js ***!
   \********************************************************/
-/*! exports provided: addCoffeeRun, loadCoffeeRuns */
+/*! exports provided: addCoffeeRun, loadCoffeeRuns, cancelCoffeeRun */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "addCoffeeRun", function() { return addCoffeeRun; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "loadCoffeeRuns", function() { return loadCoffeeRuns; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "cancelCoffeeRun", function() { return cancelCoffeeRun; });
 /* harmony import */ var _actionTypes__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./actionTypes */ "./resources/js/redux/actions/actionTypes.js");
 
 var addCoffeeRun = function addCoffeeRun(content) {
@@ -69837,6 +69867,7 @@ var addCoffeeRun = function addCoffeeRun(content) {
     type: _actionTypes__WEBPACK_IMPORTED_MODULE_0__["ADD_COFFEE_RUN"],
     payload: {
       id: content.id,
+      user_id: content.user_id,
       title: content.title,
       ends_at: content.ends_at.date
     }
@@ -69847,6 +69878,14 @@ var loadCoffeeRuns = function loadCoffeeRuns(content) {
     type: _actionTypes__WEBPACK_IMPORTED_MODULE_0__["LOAD_COFFEE_RUNS"],
     payload: {
       data: content.data
+    }
+  };
+};
+var cancelCoffeeRun = function cancelCoffeeRun(id) {
+  return {
+    type: _actionTypes__WEBPACK_IMPORTED_MODULE_0__["CANCEL_COFFEE_RUN"],
+    payload: {
+      id: id
     }
   };
 };
@@ -69916,6 +69955,11 @@ function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
     case _actions_actionTypes__WEBPACK_IMPORTED_MODULE_0__["ADD_COFFEE_RUN"]:
       return [payload].concat(_toConsumableArray(state));
 
+    case _actions_actionTypes__WEBPACK_IMPORTED_MODULE_0__["CANCEL_COFFEE_RUN"]:
+      return state.filter(function (cr) {
+        return cr.id !== payload.id;
+      });
+
     case _actions_actionTypes__WEBPACK_IMPORTED_MODULE_0__["LOAD_COFFEE_RUNS"]:
       return [].concat(_toConsumableArray(state), _toConsumableArray(payload.data));
 
@@ -69942,8 +69986,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /* harmony default export */ __webpack_exports__["default"] = (Object(redux__WEBPACK_IMPORTED_MODULE_0__["combineReducers"])({
-  coffeeRuns: _coffeeRunsReducer__WEBPACK_IMPORTED_MODULE_1__["default"],
-  account: _accountReducer__WEBPACK_IMPORTED_MODULE_2__["default"]
+  account: _accountReducer__WEBPACK_IMPORTED_MODULE_2__["default"],
+  coffeeRuns: _coffeeRunsReducer__WEBPACK_IMPORTED_MODULE_1__["default"]
 }));
 
 /***/ }),

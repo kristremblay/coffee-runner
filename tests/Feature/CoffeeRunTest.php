@@ -15,9 +15,11 @@ class CoffeeRunTest extends TestCase
         $title = 'Getting the Good Stuff';
 
         $response = $this->post('/coffee-runs/store', [
-            'title' => $title,
-            'ends_at' => Carbon::now()->addMinutes(30),
-            'slots' => 5,
+            'data' => [
+                'title' => $title,
+                'ends_at' => Carbon::now()->addMinutes(30),
+                'slots' => 5,
+            ],
         ]);
 
         $response->assertJsonStructure([
@@ -26,5 +28,37 @@ class CoffeeRunTest extends TestCase
             'title',
             'ends_at',
         ]);
+    }
+
+    public function testUserCanCancelOwnCoffeeRunOnly(){
+        $currentUser = User::find(auth()->user()->id);
+
+        // Grab one run for current user and one for another user
+        $coffeeRun = [
+            'own' => $currentUser->coffeeRuns->first(),
+            'other' => CoffeeRun::where('user_id', '<>', $currentUser->id)->first(),
+        ];
+
+        $response = [
+            'own' => $this->post('/coffee-runs/destroy', [
+                'data' => [
+                    'id' => $coffeeRun['own']->id,
+                ]
+            ]),
+
+            'other' => $this->post('/coffee-runs/destroy', [
+                'data' => [
+                    'id' => $coffeeRun['other']->id,
+                ],
+            ]),
+        ];
+
+        $id = [
+            'own' => $response['own']->json('id'),
+            'other' => $response['other']->json('id'),
+        ];
+
+        $this->assertNull(CoffeeRun::find($id['own']));
+        $this->assertNotNull(CoffeeRun::find($id['other']));
     }
 }

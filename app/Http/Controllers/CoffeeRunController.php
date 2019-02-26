@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\CancelCoffeeRun;
 use App\CoffeeRun;
 use App\Actions\CreateCoffeeRun;
+use App\Http\Requests\CancelCoffeeRunRequest;
 use App\Http\Requests\StoreCoffeeRunRequest;
 use Illuminate\Http\Request;
 
@@ -79,13 +81,13 @@ class CoffeeRunController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\CoffeeRun  $coffeeRun
-     * @return \Illuminate\Http\Response
+     * Destroy the specified resource.
+     * @param CancelCoffeeRunRequest $request
+     * @param CancelCoffeeRun $action
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function destroy(CoffeeRun $coffeeRun)
+    public function destroy(CancelCoffeeRunRequest $request, CancelCoffeeRun $action)
     {
-        //
+        return $action->execute($request->data['id']);
     }
 }

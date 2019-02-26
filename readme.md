@@ -19,3 +19,12 @@ it is best suited for small groups who just want a cup of the good stuff.
 * React 16.8 + Redux
 * SQLite
 * Slack API (For coffee arrival notifications)
+
+### Possible Improvements
+*The following is a (growing) list of nice-to-haves that will likely not be implemented soon due to time constraints.  
+Depending on future time they may be added.*
+
+* WebSocket subscriptions using Pusher API
+  *  Update the client for all users whenever a CRUD action takes place or a coffee run expires.
+* GraphQL Implementation
+  *  Replace existing API routes with something much nicer for client-side consumption.

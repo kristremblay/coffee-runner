@@ -2,14 +2,31 @@ import React, { useState } from 'react';
 import { Card, Button, Collapse } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import moment from 'moment';
+import axios from 'axios';
+
+import { cancelCoffeeRun } from "../redux/actions/coffeeRunActions";
 
 const CoffeeRun = (props) => {
-    const { data, account } = props;
+    const { data, account, onCancelCoffeeRun } = props;
     const [ showControls, setShowControls ] = useState(false);
 
     const toggleCollapsedActions = () => setShowControls(!showControls);
 
-    const handleCancelCoffeeRun = () => {};
+    const handleCancelCoffeeRun = () => {
+        const { id } = data;
+
+        if(confirm("Are you sure you want to cancel this coffee run?")){
+            axios.post('/coffee-runs/destroy', {
+                data: {
+                    id
+                }
+            }).then(res => {
+                onCancelCoffeeRun(id);
+            }).catch(err => {
+                throw new Error(err);
+            });
+        }
+    };
 
     // Creating a new order will have to be a separate component.
     const handleOpenOrderModal = () => {};
@@ -21,7 +38,7 @@ const CoffeeRun = (props) => {
      * Users can only cancel their own runs.
      */
     const displayControls = () => {
-        return data.user.id === account.id ?
+        return data.user_id == account.id ?
             (<Button variant={"danger"} onClick={handleCancelCoffeeRun}>Cancel Run</Button>) :
             (<Button variant={"primary"} onClick={handleOpenOrderModal}>Place an Order</Button>);
     };
@@ -50,4 +67,10 @@ const mapStateToProps = state => {
     }
 };
 
-export default connect(mapStateToProps, null)(CoffeeRun);
+const mapDispatchToProps = dispatch => {
+    return {
+        onCancelCoffeeRun: id => dispatch(cancelCoffeeRun(id))
+    }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(CoffeeRun);
