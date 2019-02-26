@@ -20,6 +20,26 @@ it is best suited for small groups who just want a cup of the good stuff.
 * SQLite
 * Slack API (For coffee arrival notifications)
 
+### Installation (Work in Progress)
+*Installation instructions will eventually include a Docker-based (and much nicer) alternative.*
+1. Clone this repository
+2. Within the `coffee-runner` directory, run the following commands in the order they appear:
+   1. `composer install`
+   2. `npm install`
+   3. `touch database/db.sqlite` (note: you may need to install SQLite drivers)
+   4. `cp .env.example .env`
+3. Open `.env` in your preferred editor and add the following lines:
+   1. `DB_CONNECTION=sqlite`
+   2. `DB_DATABASE="<FULL-PATH-TO/coffee-runner/database/db.sqlite>"` *Note: you will want to remove other DB Fields.*
+4. Open `database/seeds/UsersTableSeeder.php` in your preferred editor and change my email address to yours.  
+The password is `secret` by default.
+5. Run the following artisan commands in the order they appear:
+   1. `php artisan migrate`
+   2. `php artisan db:seed`
+6. Start the server with the `php artisan serve` command.
+
+That should do it. If you encounter any problems with the installation, please create an issue and I will address it.
+
 ### Possible Improvements
 *The following is a (growing) list of nice-to-haves that will likely not be implemented soon due to time constraints.  
 Depending on future time they may be added.*

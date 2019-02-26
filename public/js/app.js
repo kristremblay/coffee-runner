@@ -69451,26 +69451,38 @@ var AddCoffeeRun = function AddCoffeeRun(props) {
       show = _useState6[0],
       setShow = _useState6[1];
 
+  var _useState7 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(false),
+      _useState8 = _slicedToArray(_useState7, 2),
+      isSubmitting = _useState8[0],
+      setIsSubmitting = _useState8[1];
+
   var toggleModal = function toggleModal() {
     setValues(initialState);
     setShow(!show);
   };
 
-  var onAddCoffeeRun = props.onAddCoffeeRun;
+  var onAddCoffeeRun = props.onAddCoffeeRun,
+      account = props.account;
 
   var handleSubmit = function handleSubmit(e) {
     e.preventDefault();
     var form = e.currentTarget;
 
-    if (form.checkValidity() === false) {
+    if (!form.checkValidity()) {
       e.stopPropagation();
     }
 
+    setIsSubmitting(true);
     axios__WEBPACK_IMPORTED_MODULE_3___default.a.post('/coffee-runs/store', {
       data: coffeeRun
     }).then(function (res) {
-      onAddCoffeeRun(_objectSpread({}, res.data));
+      onAddCoffeeRun(_objectSpread({}, res.data, {
+        user: {
+          name: account.name
+        }
+      }));
       toggleModal();
+      setIsSubmitting(false);
     }).catch(function (err) {
       throw new Error(err);
     });
@@ -69503,13 +69515,15 @@ var AddCoffeeRun = function AddCoffeeRun(props) {
     name: "title",
     required: true,
     type: "text",
-    onChange: handleUpdateField
+    onChange: handleUpdateField,
+    disabled: isSubmitting
   })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_5__["Form"].Group, {
     controlId: "formGroupEndsAt"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_5__["Form"].Label, null, "What time are you leaving?"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_datetime__WEBPACK_IMPORTED_MODULE_4___default.a, {
     onBlur: handleChangeDate,
     inputProps: {
-      'required': 'required'
+      'required': 'required',
+      'disabled': isSubmitting
     },
     defaultValue: Date.now()
   })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_5__["Form"].Group, {
@@ -69518,16 +69532,19 @@ var AddCoffeeRun = function AddCoffeeRun(props) {
     name: "slots",
     required: true,
     type: "number",
-    onChange: handleUpdateField
+    onChange: handleUpdateField,
+    disabled: isSubmitting
   }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_5__["Modal"].Footer, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_5__["Button"], {
     type: "submit",
-    variant: "success"
+    variant: "success",
+    disabled: isSubmitting
   }, "Add Coffee Run")))));
 };
 
 var mapStateToProps = function mapStateToProps(state) {
   return {
-    coffeeRuns: state.coffeeRuns
+    coffeeRuns: state.coffeeRuns,
+    account: state.account
   };
 };
 
@@ -69560,6 +69577,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var _redux_actions_accountActions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../redux/actions/accountActions */ "./resources/js/redux/actions/accountActions.js");
 /* harmony import */ var _pages_coffee_run__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../pages/coffee-run */ "./resources/js/pages/coffee-run/index.js");
+/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/es/index.js");
+/* harmony import */ var _redux_actions_coffeeRunActions__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../redux/actions/coffeeRunActions */ "./resources/js/redux/actions/coffeeRunActions.js");
+
+
 
 
 
@@ -69568,7 +69589,8 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var App = function App(props) {
-  var onLoadAccountInfo = props.onLoadAccountInfo;
+  var onLoadAccountInfo = props.onLoadAccountInfo,
+      onLoadCoffeeRuns = props.onLoadCoffeeRuns;
 
   var handleLoadAccountInfo = function handleLoadAccountInfo() {
     axios__WEBPACK_IMPORTED_MODULE_3___default.a.get('/user/info').then(function (res) {
@@ -69580,14 +69602,63 @@ var App = function App(props) {
     });
   };
 
+  var handleLoadCoffeeRuns = function handleLoadCoffeeRuns() {
+    axios__WEBPACK_IMPORTED_MODULE_3___default.a.get("/coffee-runs").then(function (res) {
+      onLoadCoffeeRuns({
+        data: res.data
+      });
+    }).catch(function (err) {
+      throw new Error(err);
+    });
+  };
+
+  var handleLogout = function handleLogout() {
+    axios__WEBPACK_IMPORTED_MODULE_3___default.a.post("/logout").then(function (res) {
+      window.location = "/";
+    }).catch(function (err) {
+      throw new Error(err);
+    });
+  };
+
+  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
+    return handleLoadCoffeeRuns();
+  }, []);
   Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
     handleLoadAccountInfo();
   }, []);
-  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["BrowserRouter"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_6__["Navbar"], {
+    collapseOnSelect: true,
+    bg: "primary",
+    variant: "dark",
+    fixed: "top",
+    expand: "md"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_6__["Container"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_6__["Navbar"].Brand, {
+    href: "#"
+  }, "Coffee Runner"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_6__["Navbar"].Toggle, {
+    "aria-controls": "responsive-navbar-nav"
+  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_6__["Navbar"].Collapse, {
+    id: "responsive-navbar-nav"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_6__["Nav"], {
+    className: "ml-auto"
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_6__["Nav"].Link, {
+    href: "#user"
+  }, "My Account"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_6__["Nav"].Link, {
+    href: "#logout",
+    onClick: handleLogout
+  }, "Logout"))))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_6__["Container"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_6__["Row"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["HashRouter"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
     exact: true,
-    path: "/home",
+    path: "/",
     component: _pages_coffee_run__WEBPACK_IMPORTED_MODULE_5__["default"]
-  }));
+  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
+    path: "/user",
+    component: function component(props) {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_6__["Container"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_6__["Row"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_6__["Col"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "User Section Here"))));
+    }
+  })))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_6__["Row"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("footer", null, "Made with ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+    className: "heart"
+  }, "\u2764"), " by ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+    href: "https://kristremblay.com"
+  }, "Kris Tremblay")))));
 };
 
 var mapStateToProps = function mapStateToProps(state) {
@@ -69600,6 +69671,9 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
   return {
     onLoadAccountInfo: function onLoadAccountInfo(content) {
       return dispatch(Object(_redux_actions_accountActions__WEBPACK_IMPORTED_MODULE_4__["loadAccountInfo"])(content));
+    },
+    onLoadCoffeeRuns: function onLoadCoffeeRuns(content) {
+      return dispatch(Object(_redux_actions_coffeeRunActions__WEBPACK_IMPORTED_MODULE_7__["loadCoffeeRuns"])(content));
     }
   };
 };
@@ -69626,14 +69700,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var _redux_actions_coffeeRunActions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../redux/actions/coffeeRunActions */ "./resources/js/redux/actions/coffeeRunActions.js");
 /* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/es/index.js");
-function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
-
-function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
-
-function _iterableToArrayLimit(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
-
-function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
-
 
 
 
@@ -69645,15 +69711,6 @@ var CoffeeRun = function CoffeeRun(props) {
   var data = props.data,
       account = props.account,
       onCancelCoffeeRun = props.onCancelCoffeeRun;
-
-  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(false),
-      _useState2 = _slicedToArray(_useState, 2),
-      showControls = _useState2[0],
-      setShowControls = _useState2[1];
-
-  var toggleCollapsedActions = function toggleCollapsedActions() {
-    return setShowControls(!showControls);
-  };
 
   var handleCancelCoffeeRun = function handleCancelCoffeeRun() {
     var id = data.id;
@@ -69698,7 +69755,7 @@ var CoffeeRun = function CoffeeRun(props) {
     className: "pa-3 mb-3"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_5__["Card"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_5__["Card"].Body, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_5__["Card"].Title, null, data.title), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_5__["Card"].Text, null, "....")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_5__["ListGroup"], {
     className: "list-group-flush"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_5__["ListGroupItem"], null, "Leaving @ ", moment__WEBPACK_IMPORTED_MODULE_2___default()(data.ends_at).format("h:mm:ss")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_5__["ListGroupItem"], null, "Orders: 0 / ", data.slots)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_5__["Card"].Body, null, displayControls())));
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_5__["ListGroupItem"], null, "Leaving @ ", moment__WEBPACK_IMPORTED_MODULE_2___default()(data.ends_at).format("h:mm:ss")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_5__["ListGroupItem"], null, "Orders: 0 / ", data.slots), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_5__["ListGroupItem"], null, "Runner: ", data.user.name)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_5__["Card"].Body, null, displayControls())));
 };
 
 var mapStateToProps = function mapStateToProps(state) {
@@ -69731,13 +69788,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _redux_actions_coffeeRunActions__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../redux/actions/coffeeRunActions */ "./resources/js/redux/actions/coffeeRunActions.js");
-/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/es/index.js");
-/* harmony import */ var _components_CoffeeRun__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../components/CoffeeRun */ "./resources/js/components/CoffeeRun.js");
-/* harmony import */ var _components_AddCoffeeRun__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../components/AddCoffeeRun */ "./resources/js/components/AddCoffeeRun.js");
-
+/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/es/index.js");
+/* harmony import */ var _components_CoffeeRun__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../components/CoffeeRun */ "./resources/js/components/CoffeeRun.js");
+/* harmony import */ var _components_AddCoffeeRun__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../components/AddCoffeeRun */ "./resources/js/components/AddCoffeeRun.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
 
 
 
@@ -69746,35 +69800,20 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var CoffeeRunnerIndex = function CoffeeRunnerIndex(props) {
-  var coffeeRuns = props.coffeeRuns,
-      onLoadCoffeeRuns = props.onLoadCoffeeRuns;
+  var coffeeRuns = props.coffeeRuns;
 
   var displayCoffeeRuns = function displayCoffeeRuns() {
     return coffeeRuns.map(function (cr) {
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_CoffeeRun__WEBPACK_IMPORTED_MODULE_5__["default"], {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_CoffeeRun__WEBPACK_IMPORTED_MODULE_3__["default"], {
         data: cr,
         key: cr.id
       });
     });
   };
 
-  var handleLoadCoffeeRuns = function handleLoadCoffeeRuns() {
-    axios__WEBPACK_IMPORTED_MODULE_2___default.a.get("/coffee-runs").then(function (res) {
-      onLoadCoffeeRuns({
-        data: res.data
-      });
-    }).catch(function (err) {
-      throw new Error(err);
-    });
-  };
-
-  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
-    return handleLoadCoffeeRuns();
-  }, []);
-  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["Container"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["Row"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["Col"], {
-    xs: 12,
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Container"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Row"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Col"], {
     className: "mb-3"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_AddCoffeeRun__WEBPACK_IMPORTED_MODULE_6__["default"], null))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_4__["Row"], null, displayCoffeeRuns()));
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_components_AddCoffeeRun__WEBPACK_IMPORTED_MODULE_4__["default"], null))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Row"], null, displayCoffeeRuns()));
 };
 
 var mapStateToProps = function mapStateToProps(state) {
@@ -69783,15 +69822,7 @@ var mapStateToProps = function mapStateToProps(state) {
   };
 };
 
-var mapDispatchToProps = function mapDispatchToProps(dispatch) {
-  return {
-    onLoadCoffeeRuns: function onLoadCoffeeRuns(content) {
-      return dispatch(Object(_redux_actions_coffeeRunActions__WEBPACK_IMPORTED_MODULE_3__["loadCoffeeRuns"])(content));
-    }
-  };
-};
-
-/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(mapStateToProps, mapDispatchToProps)(CoffeeRunnerIndex));
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(mapStateToProps, null)(CoffeeRunnerIndex));
 
 /***/ }),
 

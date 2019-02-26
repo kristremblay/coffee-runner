@@ -15,3 +15,30 @@ html,body{
   margin: 0;
   padding: 0;
 }
+
+body{
+  padding-top: 50px;
+}
+
+footer{
+  width: 100%;
+  text-align: center;
+  padding: 40px 0 40px 0;
+  color: #888;
+
+  .heart{
+    margin: 0 10px 0 10px;
+  }
+}
+
+@keyframes beat{
+  to{
+    transform: scale(2);
+  }
+}
+
+.heart {
+  display: inline-block;
+  color: #c51f1a;
+  animation: beat ease-in 500ms infinite alternate;
+}

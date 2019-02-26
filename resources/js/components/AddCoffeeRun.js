@@ -17,32 +17,36 @@ const AddCoffeeRun = (props) => {
     const [ coffeeRun, setValues ] = useState(initialState);
     const [ validated, setValidated ] = useState(false);
     const [ show, setShow] = useState(false);
+    const [ isSubmitting, setIsSubmitting ] = useState(false);
 
     const toggleModal = () => {
         setValues(initialState);
         setShow(!show);
     };
 
-    const { onAddCoffeeRun } = props;
+    const { onAddCoffeeRun, account } = props;
 
     const handleSubmit = e => {
         e.preventDefault();
 
         const form = e.currentTarget;
 
-        if(form.checkValidity() === false){
+        if(!form.checkValidity()){
             e.stopPropagation();
         }
+
+        setIsSubmitting(true);
 
         axios.post('/coffee-runs/store', {
             data: coffeeRun
         }).then(res => {
-
             onAddCoffeeRun({
-                ...res.data
+                ...res.data,
+                user: {name: account.name}
             });
 
             toggleModal();
+            setIsSubmitting(false);
 
         }).catch(err => {
             throw new Error(err);
@@ -79,13 +83,14 @@ const AddCoffeeRun = (props) => {
                                 required
                                 type={"text"}
                                 onChange={handleUpdateField}
+                                disabled={isSubmitting}
                             />
                         </Form.Group>
                         <Form.Group controlId={"formGroupEndsAt"}>
                             <Form.Label>What time are you leaving?</Form.Label>
                             <DateTime
                                 onBlur={handleChangeDate}
-                                inputProps={{'required': 'required'}}
+                                inputProps={{'required': 'required', 'disabled': isSubmitting}}
                                 defaultValue={Date.now()}
                             />
                         </Form.Group>
@@ -96,11 +101,12 @@ const AddCoffeeRun = (props) => {
                                 required
                                 type={"number"}
                                 onChange={handleUpdateField}
+                                disabled={isSubmitting}
                             />
                         </Form.Group>
                     </Modal.Body>
                     <Modal.Footer>
-                        <Button type={"submit"} variant={"success"}>Add Coffee Run</Button>
+                        <Button type={"submit"} variant={"success"} disabled={isSubmitting}>Add Coffee Run</Button>
                     </Modal.Footer>
                 </Form>
             </Modal>
@@ -110,7 +116,8 @@ const AddCoffeeRun = (props) => {
 
 const mapStateToProps = state => {
     return {
-        coffeeRuns: state.coffeeRuns
+        coffeeRuns: state.coffeeRuns,
+        account: state.account,
     }
 };
 

@@ -18,7 +18,7 @@ mix.browserSync({
     watch: true,
     proxy: 'localhost:8000',
     files: [
-        'resources/js/**/*',
+        'public/**/*',
         'resources/views/**/*',
         'resources/lang/**/*'
     ]

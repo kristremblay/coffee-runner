@@ -1,7 +1,5 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import axios from 'axios';
-import { loadCoffeeRuns } from "../../redux/actions/coffeeRunActions";
 
 import {
     Container,
@@ -15,29 +13,18 @@ import {
 import CoffeeRun from '../../components/CoffeeRun';
 import AddCoffeeRun from '../../components/AddCoffeeRun';
 
+import { Link } from 'react-router-dom';
+
 const CoffeeRunnerIndex = (props) => {
 
-    const { coffeeRuns, onLoadCoffeeRuns } = props;
+    const { coffeeRuns } = props;
 
     const displayCoffeeRuns = () => coffeeRuns.map(cr => <CoffeeRun data={cr} key={cr.id}/>);
-
-    const handleLoadCoffeeRuns = () => {
-        axios.get(`/coffee-runs`).then(res => {
-            onLoadCoffeeRuns({
-                data: res.data
-            });
-        }).catch(err => {
-            throw new Error(err)
-        });
-    };
-
-    useEffect(() => handleLoadCoffeeRuns(), []);
 
     return (
         <Container>
             <Row>
-                <Col xs={12} className={"mb-3"}>
-                    { /** @TODO: This is temporary until navbar is implemented **/}
+                <Col className={"mb-3"}>
                     <AddCoffeeRun/>
                 </Col>
             </Row>
@@ -53,11 +40,4 @@ const mapStateToProps = state => {
         coffeeRuns: state.coffeeRuns
     };
 };
-
-const mapDispatchToProps = dispatch => {
-    return {
-        onLoadCoffeeRuns: content => dispatch(loadCoffeeRuns(content))
-    }
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(CoffeeRunnerIndex);
+export default connect(mapStateToProps, null)(CoffeeRunnerIndex);

@@ -10910,3 +10910,39 @@ body {
   padding: 0;
 }
 
+body {
+  padding-top: 50px;
+}
+
+footer {
+  width: 100%;
+  text-align: center;
+  padding: 40px 0 40px 0;
+  color: #888;
+}
+
+footer .heart {
+  margin: 0 10px 0 10px;
+}
+
+@-webkit-keyframes beat {
+  to {
+    -webkit-transform: scale(2);
+            transform: scale(2);
+  }
+}
+
+@keyframes beat {
+  to {
+    -webkit-transform: scale(2);
+            transform: scale(2);
+  }
+}
+
+.heart {
+  display: inline-block;
+  color: #c51f1a;
+  -webkit-animation: beat ease-in 500ms infinite alternate;
+          animation: beat ease-in 500ms infinite alternate;
+}
+

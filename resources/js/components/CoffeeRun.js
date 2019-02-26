@@ -10,9 +10,6 @@ import { Card, Button, Collapse, ListGroup, ListGroupItem, Col } from 'react-boo
 
 const CoffeeRun = (props) => {
     const { data, account, onCancelCoffeeRun } = props;
-    const [ showControls, setShowControls ] = useState(false);
-
-    const toggleCollapsedActions = () => setShowControls(!showControls);
 
     const handleCancelCoffeeRun = () => {
         const { id } = data;
@@ -57,6 +54,7 @@ const CoffeeRun = (props) => {
                 <ListGroup className="list-group-flush">
                     <ListGroupItem>Leaving @ { moment(data.ends_at).format("h:mm:ss") }</ListGroupItem>
                     <ListGroupItem>Orders: 0 / { data.slots }</ListGroupItem>
+                    <ListGroupItem>Runner: { data.user.name }</ListGroupItem>
                 </ListGroup>
                 <Card.Body>
                     { displayControls() }
