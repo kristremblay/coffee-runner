@@ -45,8 +45,8 @@ const CoffeeRun = (props) => {
 
     return (
         <Card className={'coffee-run-list-item mb-3'}>
-            <Card.Body onClick={toggleCollapsedActions}>
-                <Card.Title>{data.title}</Card.Title>
+            <Card.Body>
+                <Card.Title onClick={toggleCollapsedActions}>{data.title}</Card.Title>
                 <Card.Text>
                     {/** @TODO: Setup grid here and add coffee run details + countdown timer if near deadline. **/}
                     @{ moment(data.ends_at).format("h:mm:ss") }

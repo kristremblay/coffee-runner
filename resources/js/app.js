@@ -7,9 +7,11 @@ import App from './components/App';
 
 const rootElement = document.getElementById('app');
 
-ReactDOM.render(
-    <Provider store={store}>
-        <App/>
-    </Provider>,
-    rootElement
-);
+if(rootElement){
+    ReactDOM.render(
+        <Provider store={store}>
+            <App/>
+        </Provider>,
+        rootElement
+    );
+}
