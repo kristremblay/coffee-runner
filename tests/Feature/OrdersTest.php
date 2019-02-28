@@ -5,16 +5,44 @@ namespace Tests\Feature;
 use Tests\TestCase;
 
 use App\Order;
+use App\CoffeeRun;
+use App\User;
 
 class OrdersTest extends TestCase
 {
+    protected $coffeeRun;
+    protected $orderUserId;
+    protected $orderCount;
+
+    public function setUp()
+    {
+        parent::setUp();
+        $slots = rand(2,8);
+        $this->orderCount = rand(1, $slots - 1);
+        $this->coffeeRun = factory(CoffeeRun::class)->create([
+            'user_id' => auth()->user()->id,
+            'slots' => $slots
+        ]);
+
+        $this->orderUserId = User::where('id', '<>', auth()->user()->id)->first()->pluck('id');
+
+        factory(Order::class, $this->orderCount)->create([
+            'user_id' => $this->orderUserId,
+            'coffee_run_id' => $this->coffeeRun->id,
+        ]);
+    }
     /**
      * Can create and save a new order.
      */
     public function testUserCanCreateOrders()
     {
-        // change this
-        $this->assertTrue(true);
+        $response = $this->post("/coffee-runs/{$this->coffeeRun->id}/orders/store", [
+            'data' => factory(Order::class)->make([
+                'coffee_run_id' => $this->coffeeRun->id,
+            ])->toArray(),
+        ]);
+
+        $response->assertStatus(201);
     }
 
     public function testUserCanUpdateOrder()
@@ -32,18 +60,16 @@ class OrdersTest extends TestCase
      */
     public function testUserCanRetrieveAListOfOpenOrders()
     {
-        /*$response = $this->get('/orders/list');
+        // Act
+        $response = $this->get("/coffee-runs/{$this->coffeeRun->id}/orders");
 
         // Assert
-        $response->assertJsonStructure([
-            'data' => [
-                'id',
-                'title',
-                'start_date',
-                'end_date',
-            ],
-        ]);*/
+        $this->assertEquals($this->orderCount, $this->coffeeRun->orders->count());
 
-        $this->assertTrue(true);
+        $response->assertStatus(200);
+        $response->assertJsonCount($this->orderCount);
+        $response->assertJsonStructure([
+            ['id', 'user_id', 'coffee_run_id', 'details',],
+        ]);
     }
 }

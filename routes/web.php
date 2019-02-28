@@ -21,8 +21,11 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::middleware(['auth:web'])->group(function(){
     Route::prefix('coffee-runs')->group(function(){
        Route::get('/', 'CoffeeRunController@index')->name('coffee-runs.index');
+       Route::get('/{id}/show', 'CoffeeRunController@show')->name('coffee-runs.show');
+       Route::get('/{coffeeRunId}/orders', 'OrderController@index')->name('coffee-runs.orders.list');
        Route::post('/store', 'CoffeeRunController@store')->name('cofffee-runs.store');
        Route::post('/destroy', 'CoffeeRunController@destroy')->name('coffee-runs.destroy');
+       Route::post('/{coffeeRunId}/orders/store', 'OrderController@store')->name('coffee-runs.orders.store');
     });
 
     Route::prefix('/user')->group(function(){

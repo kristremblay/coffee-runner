@@ -5,10 +5,10 @@ import axios from 'axios';
 
 import { loadAccountInfo } from '../redux/actions/accountActions';
 import CoffeeRunsIndex from '../pages/coffee-run';
+import DetailsPage from '../pages/coffee-run/details';
 
 import { Nav, Navbar, Container, Row, Col, Button } from 'react-bootstrap';
 import {loadCoffeeRuns} from "../redux/actions/coffeeRunActions";
-
 
 const App = (props) => {
 
@@ -44,7 +44,6 @@ const App = (props) => {
 
     useEffect(() => handleLoadCoffeeRuns(), []);
 
-
     useEffect(() => {
         handleLoadAccountInfo()
     }, []);
@@ -69,6 +68,7 @@ const App = (props) => {
                         <div>
                             <Route exact path={"/"} component={CoffeeRunsIndex}/>
                             <Route path={"/user"} component={(props)=>(<Container><Row><Col><h2>User Section Here</h2></Col></Row></Container>)}/>
+                            <Route path={"/details/:id?"} component={DetailsPage} />
                         </div>
                     </Router>
                 </Row>

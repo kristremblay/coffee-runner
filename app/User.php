@@ -29,7 +29,19 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+    /**
+     * Get coffee runs scheduled by this user.
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function coffeeRuns(){
         return $this->hasMany(CoffeeRun::class);
+    }
+
+    /**
+     * Get orders placed by this user.
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function orders(){
+        return $this->hasMany(Order::class);
     }
 }

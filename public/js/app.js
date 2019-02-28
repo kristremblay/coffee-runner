@@ -69577,8 +69577,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var _redux_actions_accountActions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../redux/actions/accountActions */ "./resources/js/redux/actions/accountActions.js");
 /* harmony import */ var _pages_coffee_run__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../pages/coffee-run */ "./resources/js/pages/coffee-run/index.js");
-/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/es/index.js");
-/* harmony import */ var _redux_actions_coffeeRunActions__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../redux/actions/coffeeRunActions */ "./resources/js/redux/actions/coffeeRunActions.js");
+/* harmony import */ var _pages_coffee_run_details__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../pages/coffee-run/details */ "./resources/js/pages/coffee-run/details.js");
+/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/es/index.js");
+/* harmony import */ var _redux_actions_coffeeRunActions__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../redux/actions/coffeeRunActions */ "./resources/js/redux/actions/coffeeRunActions.js");
+
 
 
 
@@ -69626,35 +69628,38 @@ var App = function App(props) {
   Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
     handleLoadAccountInfo();
   }, []);
-  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_6__["Navbar"], {
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_7__["Navbar"], {
     collapseOnSelect: true,
     bg: "primary",
     variant: "dark",
     fixed: "top",
     expand: "md"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_6__["Container"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_6__["Navbar"].Brand, {
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_7__["Container"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_7__["Navbar"].Brand, {
     href: "#"
-  }, "Coffee Runner"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_6__["Navbar"].Toggle, {
+  }, "Coffee Runner"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_7__["Navbar"].Toggle, {
     "aria-controls": "responsive-navbar-nav"
-  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_6__["Navbar"].Collapse, {
+  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_7__["Navbar"].Collapse, {
     id: "responsive-navbar-nav"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_6__["Nav"], {
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_7__["Nav"], {
     className: "ml-auto"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_6__["Nav"].Link, {
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_7__["Nav"].Link, {
     href: "#user"
-  }, "My Account"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_6__["Nav"].Link, {
+  }, "My Account"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_7__["Nav"].Link, {
     href: "#logout",
     onClick: handleLogout
-  }, "Logout"))))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_6__["Container"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_6__["Row"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["HashRouter"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
+  }, "Logout"))))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_7__["Container"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_7__["Row"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["HashRouter"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
     exact: true,
     path: "/",
     component: _pages_coffee_run__WEBPACK_IMPORTED_MODULE_5__["default"]
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
     path: "/user",
     component: function component(props) {
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_6__["Container"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_6__["Row"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_6__["Col"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "User Section Here"))));
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_7__["Container"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_7__["Row"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_7__["Col"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "User Section Here"))));
     }
-  })))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_6__["Row"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("footer", null, "Made with ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_1__["Route"], {
+    path: "/details/:id?",
+    component: _pages_coffee_run_details__WEBPACK_IMPORTED_MODULE_6__["default"]
+  })))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_7__["Row"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("footer", null, "Made with ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
     className: "heart"
   }, "\u2764"), " by ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
     href: "https://kristremblay.com"
@@ -69673,7 +69678,7 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
       return dispatch(Object(_redux_actions_accountActions__WEBPACK_IMPORTED_MODULE_4__["loadAccountInfo"])(content));
     },
     onLoadCoffeeRuns: function onLoadCoffeeRuns(content) {
-      return dispatch(Object(_redux_actions_coffeeRunActions__WEBPACK_IMPORTED_MODULE_7__["loadCoffeeRuns"])(content));
+      return dispatch(Object(_redux_actions_coffeeRunActions__WEBPACK_IMPORTED_MODULE_8__["loadCoffeeRuns"])(content));
     }
   };
 };
@@ -69700,6 +69705,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var _redux_actions_coffeeRunActions__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../redux/actions/coffeeRunActions */ "./resources/js/redux/actions/coffeeRunActions.js");
 /* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/es/index.js");
+/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
+
 
 
 
@@ -69726,10 +69733,7 @@ var CoffeeRun = function CoffeeRun(props) {
         throw new Error(err);
       });
     }
-  }; // Creating a new order will have to be a separate component.
-
-
-  var handleOpenOrderModal = function handleOpenOrderModal() {};
+  };
   /**
    * Users must be able to place orders on coffee runs of others,
    * but not their own.
@@ -69742,9 +69746,9 @@ var CoffeeRun = function CoffeeRun(props) {
     return data.user_id == account.id ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_5__["Button"], {
       variant: "danger",
       onClick: handleCancelCoffeeRun
-    }, "Cancel Run") : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_5__["Button"], {
-      variant: "primary",
-      onClick: handleOpenOrderModal
+    }, "Cancel Run") : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_6__["Link"], {
+      className: "btn btn-primary",
+      to: "/details/".concat(data.id)
     }, "Place an Order");
   };
 
@@ -69776,6 +69780,69 @@ var mapDispatchToProps = function mapDispatchToProps(dispatch) {
 
 /***/ }),
 
+/***/ "./resources/js/pages/coffee-run/details.js":
+/*!**************************************************!*\
+  !*** ./resources/js/pages/coffee-run/details.js ***!
+  \**************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/es/index.js");
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
+
+function _iterableToArrayLimit(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+
+
+
+var DetailsPage = function DetailsPage(props) {
+  var initialState = {
+    id: null,
+    title: null,
+    slots: null,
+    ends_at: null
+  };
+  var id = props.match.params.id;
+
+  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(initialState),
+      _useState2 = _slicedToArray(_useState, 2),
+      coffeeRun = _useState2[0],
+      setCoffeeRun = _useState2[1];
+
+  var handleLoadCoffeeRun = function handleLoadCoffeeRun() {
+    axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("/coffee-runs/".concat(id, "/show")).then(function (res) {
+      setCoffeeRun(_objectSpread({}, res.data));
+      console.log(res.data);
+    }).catch(function (err) {
+      throw new Error(err);
+    });
+  };
+
+  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
+    handleLoadCoffeeRun();
+  }, []);
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Container"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Row"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_2__["Col"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, coffeeRun.title))));
+};
+
+/* harmony default export */ __webpack_exports__["default"] = (DetailsPage);
+
+/***/ }),
+
 /***/ "./resources/js/pages/coffee-run/index.js":
 /*!************************************************!*\
   !*** ./resources/js/pages/coffee-run/index.js ***!
@@ -69791,8 +69858,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_bootstrap__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-bootstrap */ "./node_modules/react-bootstrap/es/index.js");
 /* harmony import */ var _components_CoffeeRun__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../components/CoffeeRun */ "./resources/js/components/CoffeeRun.js");
 /* harmony import */ var _components_AddCoffeeRun__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../components/AddCoffeeRun */ "./resources/js/components/AddCoffeeRun.js");
-/* harmony import */ var react_router_dom__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-router-dom */ "./node_modules/react-router-dom/es/index.js");
-
 
 
 

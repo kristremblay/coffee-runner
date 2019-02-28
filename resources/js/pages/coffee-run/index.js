@@ -5,15 +5,10 @@ import {
     Container,
     Row,
     Col,
-    Button,
-    Icon,
-    Card
 } from 'react-bootstrap';
 
 import CoffeeRun from '../../components/CoffeeRun';
 import AddCoffeeRun from '../../components/AddCoffeeRun';
-
-import { Link } from 'react-router-dom';
 
 const CoffeeRunnerIndex = (props) => {
 

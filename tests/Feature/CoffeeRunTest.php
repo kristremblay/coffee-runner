@@ -30,6 +30,13 @@ class CoffeeRunTest extends TestCase
         ]);
     }
 
+    public function testUserCanQuerySpecificCoffeeRun(){
+        $coffeeRun = CoffeeRun::inRandomOrder()->first();
+        $response = $this->get("/coffee-runs/{$coffeeRun->id}/show");
+
+        $response->AssertStatus(200);
+    }
+
     public function testUserCanCancelOwnCoffeeRunOnly(){
         $currentUser = User::find(auth()->user()->id);
 

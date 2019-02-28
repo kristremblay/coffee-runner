@@ -1,12 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 import moment from 'moment';
 import axios from 'axios';
 
 import { cancelCoffeeRun } from "../redux/actions/coffeeRunActions";
 
-
 import { Card, Button, Collapse, ListGroup, ListGroupItem, Col } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 const CoffeeRun = (props) => {
     const { data, account, onCancelCoffeeRun } = props;
@@ -27,9 +27,6 @@ const CoffeeRun = (props) => {
         }
     };
 
-    // Creating a new order will have to be a separate component.
-    const handleOpenOrderModal = () => {};
-
     /**
      * Users must be able to place orders on coffee runs of others,
      * but not their own.
@@ -39,7 +36,7 @@ const CoffeeRun = (props) => {
     const displayControls = () => {
         return data.user_id == account.id ?
             (<Button variant={"danger"} onClick={handleCancelCoffeeRun}>Cancel Run</Button>) :
-            (<Button variant={"primary"} onClick={handleOpenOrderModal}>Place an Order</Button>);
+            (<Link className={"btn btn-primary"} to={`/details/${data.id}`}>Place an Order</Link>);
     };
 
     return (

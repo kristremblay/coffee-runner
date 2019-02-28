@@ -4,24 +4,16 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class CoffeeRun extends Model
+class Order extends Model
 {
     protected $guarded = ['id', 'created_at', 'updated_at'];
 
     /**
-     * Get the user who owns the coffee run.
+     * Get the user associated with this order.
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function user()
     {
         return $this->belongsTo(User::class);
-    }
-
-    /**
-     * Get all orders associated with this run.
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function orders(){
-        return $this->hasMany(Order::class);
     }
 }

@@ -25,16 +25,6 @@ class CoffeeRunController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param StoreCoffeeRunRequest $request
@@ -47,25 +37,14 @@ class CoffeeRunController extends Controller
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  \App\CoffeeRun  $coffeeRun
-     * @return \Illuminate\Http\Response
+     * Show a specified Coffee Run
+     * @param CoffeeRun $coffeeRun
+     * @param $id
+     * @return mixed
      */
-    public function show(CoffeeRun $coffeeRun)
+    public function show(CoffeeRun $coffeeRun, $id)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\CoffeeRun  $coffeeRun
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(CoffeeRun $coffeeRun)
-    {
-        //
+        return CoffeeRun::findOrFail($id);
     }
 
     /**
