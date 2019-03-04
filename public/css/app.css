@@ -10946,3 +10946,7 @@ footer .heart {
           animation: beat ease-in 500ms infinite alternate;
 }
 
+div.router-internal-container {
+  width: 100%;
+}
+

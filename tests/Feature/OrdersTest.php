@@ -31,6 +31,7 @@ class OrdersTest extends TestCase
             'coffee_run_id' => $this->coffeeRun->id,
         ]);
     }
+
     /**
      * Can create and save a new order.
      */

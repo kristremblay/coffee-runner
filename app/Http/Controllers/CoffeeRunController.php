@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Actions\CancelCoffeeRun;
+use App\Actions\RetrieveCoffeeRunDetails;
 use App\CoffeeRun;
 use App\Actions\CreateCoffeeRun;
 use App\Http\Requests\CancelCoffeeRunRequest;
@@ -36,15 +37,16 @@ class CoffeeRunController extends Controller
         return $action->execute($request->data);
     }
 
+
     /**
-     * Show a specified Coffee Run
-     * @param CoffeeRun $coffeeRun
+     * Retrieve details for specific coffee run.
      * @param $id
-     * @return mixed
+     * @param RetrieveCoffeeRunDetails $action
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function show(CoffeeRun $coffeeRun, $id)
+    public function show($id, RetrieveCoffeeRunDetails $action)
     {
-        return CoffeeRun::findOrFail($id);
+        return $action->execute($id);
     }
 
     /**

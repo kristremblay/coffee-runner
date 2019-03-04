@@ -65,7 +65,7 @@ const App = (props) => {
             <Container>
                 <Row>
                     <Router>
-                        <div>
+                        <div className={"router-internal-container"}>
                             <Route exact path={"/"} component={CoffeeRunsIndex}/>
                             <Route path={"/user"} component={(props)=>(<Container><Row><Col><h2>User Section Here</h2></Col></Row></Container>)}/>
                             <Route path={"/details/:id?"} component={DetailsPage} />
