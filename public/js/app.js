@@ -83630,6 +83630,12 @@ var DetailsPage = function DetailsPage(props) {
       coffeeRun = _useState2[0],
       setCoffeeRun = _useState2[1];
 
+  var owner = coffeeRun.owner,
+      orders = coffeeRun.orders,
+      orderCount = coffeeRun.orderCount,
+      slots = coffeeRun.slots,
+      title = coffeeRun.title;
+
   var handleLoadCoffeeRun = function handleLoadCoffeeRun() {
     axios__WEBPACK_IMPORTED_MODULE_2___default.a.get("/coffee-runs/".concat(id, "/show")).then(function (res) {
       var _res$data = res.data,
@@ -83653,10 +83659,6 @@ var DetailsPage = function DetailsPage(props) {
 
   var displayOrders = function displayOrders() {
     var markup;
-    var owner = coffeeRun.owner,
-        orders = coffeeRun.orders,
-        orderCount = coffeeRun.orderCount,
-        slots = coffeeRun.slots;
 
     if (owner) {
       markup = orders.map(function (o) {
@@ -83702,7 +83704,8 @@ var DetailsPage = function DetailsPage(props) {
   };
 
   var displayAcceptingOrdersUntil = function displayAcceptingOrdersUntil() {
-    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Accepting Orders Until: ", moment__WEBPACK_IMPORTED_MODULE_1___default()(coffeeRun.ends_at).format("HH:mm"));
+    var ends_at = coffeeRun.ends_at;
+    return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Accepting Orders Until: ", moment__WEBPACK_IMPORTED_MODULE_1___default()(ends_at).format("HH:mm"));
   };
 
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["Container"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["Row"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["Col"], {
@@ -83710,7 +83713,7 @@ var DetailsPage = function DetailsPage(props) {
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_4__["Link"], {
     to: "/",
     className: "btn btn-primary"
-  }, "\u25C0 Back"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["Row"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["Col"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, coffeeRun.title), displayAcceptingOrdersUntil())), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["Row"], null, displayOrders()));
+  }, "\u25C0 Back"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["Row"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["Col"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, title), displayAcceptingOrdersUntil())), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["Row"], null, displayOrders()));
 };
 
 /* harmony default export */ __webpack_exports__["default"] = (DetailsPage);

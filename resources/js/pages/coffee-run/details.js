@@ -20,6 +20,8 @@ const DetailsPage = (props) => {
     const id = props.match.params.id;
     const [ coffeeRun, setCoffeeRun ] = useState(initialState);
 
+    const { owner, orders, orderCount, slots, title } = coffeeRun;
+
     const handleLoadCoffeeRun = () => {
         axios.get(`/coffee-runs/${id}/show`).then(res => {
 
@@ -44,8 +46,6 @@ const DetailsPage = (props) => {
     const displayOrders = () => {
 
         let markup;
-
-        const { owner, orders, orderCount, slots } = coffeeRun;
 
         if(owner){
             markup = orders.map(o => (
@@ -113,8 +113,9 @@ const DetailsPage = (props) => {
     };
 
     const displayAcceptingOrdersUntil = () => {
+        const { ends_at } = coffeeRun;
         return (
-            <p>Accepting Orders Until: { moment(coffeeRun.ends_at).format("HH:mm") }</p>
+            <p>Accepting Orders Until: { moment(ends_at).format("HH:mm") }</p>
         );
     };
 
@@ -127,7 +128,7 @@ const DetailsPage = (props) => {
             </Row>
             <Row>
                 <Col>
-                    <h2>{coffeeRun.title}</h2>
+                    <h2>{title}</h2>
                     { displayAcceptingOrdersUntil() }
                 </Col>
             </Row>
