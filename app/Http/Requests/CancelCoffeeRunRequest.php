@@ -24,9 +24,7 @@ class CancelCoffeeRunRequest extends FormRequest
     public function rules()
     {
         return [
-            'data' => [
-                'id' => ['required','numeric',],
-            ],
+            'data.id' => 'required|numeric',
         ];
     }
 }

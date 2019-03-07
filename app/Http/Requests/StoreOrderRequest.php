@@ -24,11 +24,9 @@ class StoreOrderRequest extends FormRequest
     public function rules()
     {
         return [
-            'data' => [
-                'user_id' => ['required', 'exists:users,id', 'numeric'],
-                'coffee_run_id' => ['required', 'exists:coffee_runs,id', 'not_in:'.auth()->user()->id],
-                'details' => ['required', 'json'],
-            ],
+            'data.user_id' => 'required|exists:users,id|numeric',
+            'data.coffee_run_id' => 'required|exists:coffee_runs,id|not_in:'.auth()->user()->id,
+            'data.details' => 'required|json',
         ];
     }
 }
