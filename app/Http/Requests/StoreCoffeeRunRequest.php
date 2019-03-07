@@ -24,11 +24,9 @@ class StoreCoffeeRunRequest extends FormRequest
     public function rules()
     {
         return [
-            'data' => [
-                'title' => ['required' , 'max:96'],
-                'ends_at' => ['required', 'date'],
-                'slots' => ['required', 'numeric'],
-            ]
+            'data.title' => 'required|max:96',
+            'data.ends_at' => 'required|date',
+            'data.slots' => 'required|numeric',
         ];
     }
 }
