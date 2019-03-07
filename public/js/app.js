@@ -83556,7 +83556,9 @@ var CoffeeRun = function CoffeeRun(props) {
     md: 6,
     lg: 4,
     className: "pa-3 mb-3"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_5__["Card"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_5__["Card"].Body, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_5__["Card"].Title, null, data.title), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_5__["Card"].Text, null, "....")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_5__["ListGroup"], {
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_5__["Card"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_5__["Card"].Body, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_5__["Card"].Title, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_6__["Link"], {
+    to: "/details/".concat(data.id)
+  }, data.title)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_5__["Card"].Text, null, "....")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_5__["ListGroup"], {
     className: "list-group-flush"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_5__["ListGroupItem"], null, "Leaving @ ", moment__WEBPACK_IMPORTED_MODULE_2___default()(data.ends_at).format("h:mm:ss")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_5__["ListGroupItem"], null, "Orders: 0 / ", data.slots), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_5__["ListGroupItem"], null, "Runner: ", data.user.name)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_5__["Card"].Body, null, displayControls())));
 };
@@ -83630,6 +83632,11 @@ var DetailsPage = function DetailsPage(props) {
       coffeeRun = _useState2[0],
       setCoffeeRun = _useState2[1];
 
+  var _useState3 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(false),
+      _useState4 = _slicedToArray(_useState3, 2),
+      loaded = _useState4[0],
+      setLoaded = _useState4[1];
+
   var owner = coffeeRun.owner,
       orders = coffeeRun.orders,
       orderCount = coffeeRun.orderCount,
@@ -83648,6 +83655,7 @@ var DetailsPage = function DetailsPage(props) {
         owner: owner,
         orderCount: orderCount
       }));
+      setLoaded(true);
     }).catch(function (err) {
       throw new Error(err);
     });
@@ -83658,49 +83666,52 @@ var DetailsPage = function DetailsPage(props) {
   }, []); // This is a good candidate for a separate component, even if just to clean up this file.
 
   var displayOrders = function displayOrders() {
-    var markup;
+    if (loaded) {
+      // this "loaded" property is a temporary, quick and dirty replacement for an actual preloader
+      var markup;
 
-    if (owner) {
-      markup = orders.map(function (o) {
-        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["Col"], {
-          sm: 12,
-          md: 6,
-          lg: 4,
-          className: "pa-3 mb-3",
-          key: o.id
-        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["Card"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["Card"].Body, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["Card"].Title, null, o.details.title)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["Card"].Body, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["Button"], {
-          variant: "primary"
-        }, "Control"))));
-      });
-    } else {
-      if (orderCount > 0) {
-        if (orderCount < slots) {
-          markup = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["Container"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["Row"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["Col"], {
-            xs: 12
-          }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["Alert"], {
-            variant: "warning"
-          }, "There is room for ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("strong", null, coffeeRun.slots - coffeeRun.orders), " more orders.")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["Col"], {
-            xs: 12
-          }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["Button"], {
+      if (owner) {
+        markup = orders.map(function (o) {
+          return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["Col"], {
+            sm: 12,
+            md: 6,
+            lg: 4,
+            className: "pa-3 mb-3",
+            key: o.id
+          }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["Card"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["Card"].Body, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["Card"].Title, null, o.details.title)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["Card"].Body, null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["Button"], {
+            variant: "primary"
+          }, "Control"))));
+        });
+      } else {
+        if (orderCount > 0) {
+          if (orderCount < slots) {
+            markup = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["Container"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["Row"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["Col"], {
+              xs: 12
+            }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["Alert"], {
+              variant: "warning"
+            }, "There is room for ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("strong", null, coffeeRun.slots - coffeeRun.orders), " more orders.")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["Col"], {
+              xs: 12
+            }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["Button"], {
+              variant: "primary"
+            }, "Place an Order"))));
+          } else {
+            markup = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["Container"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["Row"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["Col"], {
+              xs: 12
+            }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["Alert"], {
+              variant: "danger"
+            }, "This coffee run is full :(")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["Col"], {
+              xs: 12
+            })));
+          }
+        } else {
+          markup = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["Col"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["Jumbotron"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "There are no orders!"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Would you like to get in on the action before all ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("strong", null, slots), " slots fill up?"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["Button"], {
             variant: "primary"
           }, "Place an Order"))));
-        } else {
-          markup = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["Container"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["Row"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["Col"], {
-            xs: 12
-          }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["Alert"], {
-            variant: "danger"
-          }, "This coffee run is full :(")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["Col"], {
-            xs: 12
-          })));
         }
-      } else {
-        markup = react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["Col"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["Jumbotron"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, "There are no orders!"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "Would you like to get in on the action before all ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("strong", null, slots), " slots fill up?"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_bootstrap__WEBPACK_IMPORTED_MODULE_3__["Button"], {
-          variant: "primary"
-        }, "Place an Order"))));
       }
-    }
 
-    return markup;
+      return markup;
+    }
   };
 
   var displayAcceptingOrdersUntil = function displayAcceptingOrdersUntil() {

@@ -36,7 +36,8 @@ The password is `secret` by default.
 5. Run the following artisan commands in the order they appear:
    1. `php artisan migrate`
    2. `php artisan db:seed`
-6. Start the server with the `php artisan serve` command.
+6. Generate a new application key with `php artisan key:generate`
+7. Start the server with the `php artisan serve` command.
 
 That should do it. If you encounter any problems with the installation, please create an issue and I will address it.
 

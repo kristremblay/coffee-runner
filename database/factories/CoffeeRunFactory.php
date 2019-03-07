@@ -9,7 +9,7 @@ $factory->define(CoffeeRun::class, function (Faker $faker) {
     return [
         'user_id' => User::inRandomOrder()->first(),
         'title' => $faker->sentence(3),
-        'ends_at' => Carbon::now()->addMinutes(rand(15,60)),
-        'slots' => rand(0,25),
+        'ends_at' => Carbon::now()->addMinutes(rand(30,600)),
+        'slots' => rand(1,12),
     ];
 });

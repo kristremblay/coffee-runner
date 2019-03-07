@@ -43,7 +43,9 @@ const CoffeeRun = (props) => {
         <Col sm={12} md={6} lg={4} className={"pa-3 mb-3"}>
             <Card>
                 <Card.Body>
-                    <Card.Title>{data.title}</Card.Title>
+                    <Card.Title>
+                        <Link to={`/details/${data.id}`}>{data.title}</Link>
+                    </Card.Title>
                     <Card.Text>
                         ....
                     </Card.Text>

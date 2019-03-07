@@ -14,11 +14,12 @@ const DetailsPage = (props) => {
         slots: null,
         ends_at: null,
         orders: [],
-        orderCount: 0
+        orderCount: 0,
     };
 
     const id = props.match.params.id;
     const [ coffeeRun, setCoffeeRun ] = useState(initialState);
+    const [ loaded, setLoaded ] = useState(false);
 
     const { owner, orders, orderCount, slots, title } = coffeeRun;
 
@@ -33,6 +34,8 @@ const DetailsPage = (props) => {
                 owner: owner,
                 orderCount: orderCount
             });
+
+            setLoaded(true);
         }).catch(err => {
             throw new Error(err);
         });
@@ -44,72 +47,75 @@ const DetailsPage = (props) => {
 
     // This is a good candidate for a separate component, even if just to clean up this file.
     const displayOrders = () => {
+        if(loaded) { // this "loaded" property is a temporary, quick and dirty replacement for an actual preloader
+            let markup;
 
-        let markup;
-
-        if(owner){
-            markup = orders.map(o => (
-                <Col sm={12} md={6} lg={4} className={"pa-3 mb-3"} key={o.id}>
-                    <Card>
-                        <Card.Body>
-                            <Card.Title>{o.details.title}</Card.Title>
-                        </Card.Body>
-                        <Card.Body>
-                            <Button variant={"primary"}>Control</Button>
-                        </Card.Body>
-                    </Card>
-                </Col>
-            ));
-        }
-        else{
-            if(orderCount > 0){
-                if(orderCount < slots){
-                    markup = (
-                        <Container>
-                            <Row>
-                                <Col xs={12}>
-                                    <Alert variant={"warning"}>
-                                        There is room for <strong>{coffeeRun.slots - coffeeRun.orders}</strong> more orders.
-                                    </Alert>
-                                </Col>
-                                <Col xs={12}>
-                                    <Button variant={"primary"}>Place an Order</Button>
-                                </Col>
-                            </Row>
-                        </Container>
-                    );
-                }
-                else{
-                    markup = (
-                        <Container>
-                            <Row>
-                                <Col xs={12}>
-                                    <Alert variant={"danger"}>This coffee run is full :(</Alert>
-                                </Col>
-                                <Col xs={12}>
-                                </Col>
-                            </Row>
-                        </Container>
-                    );
-                }
-            }
-            else{
-                markup = (
-                    <Col>
-                        <Jumbotron>
-                            <h2>There are no orders!</h2>
-                            <p>
-                                Would you like to get in on the action before all <strong>{slots}</strong> slots fill up?
-                            </p>
-                            <p>
-                                <Button variant={"primary"}>Place an Order</Button>
-                            </p>
-                        </Jumbotron>
+            if (owner) {
+                markup = orders.map(o => (
+                    <Col sm={12} md={6} lg={4} className={"pa-3 mb-3"} key={o.id}>
+                        <Card>
+                            <Card.Body>
+                                <Card.Title>{o.details.title}</Card.Title>
+                            </Card.Body>
+                            <Card.Body>
+                                <Button variant={"primary"}>Control</Button>
+                            </Card.Body>
+                        </Card>
                     </Col>
-                );
+                ));
             }
+            else {
+                if (orderCount > 0) {
+                    if (orderCount < slots) {
+                        markup = (
+                            <Container>
+                                <Row>
+                                    <Col xs={12}>
+                                        <Alert variant={"warning"}>
+                                            There is room for <strong>{coffeeRun.slots - coffeeRun.orders}</strong> more
+                                            orders.
+                                        </Alert>
+                                    </Col>
+                                    <Col xs={12}>
+                                        <Button variant={"primary"}>Place an Order</Button>
+                                    </Col>
+                                </Row>
+                            </Container>
+                        );
+                    }
+                    else {
+                        markup = (
+                            <Container>
+                                <Row>
+                                    <Col xs={12}>
+                                        <Alert variant={"danger"}>This coffee run is full :(</Alert>
+                                    </Col>
+                                    <Col xs={12}>
+                                    </Col>
+                                </Row>
+                            </Container>
+                        );
+                    }
+                }
+                else {
+                    markup = (
+                        <Col>
+                            <Jumbotron>
+                                <h2>There are no orders!</h2>
+                                <p>
+                                    Would you like to get in on the action before all <strong>{slots}</strong> slots
+                                    fill up?
+                                </p>
+                                <p>
+                                    <Button variant={"primary"}>Place an Order</Button>
+                                </p>
+                            </Jumbotron>
+                        </Col>
+                    );
+                }
+            }
+            return markup;
         }
-        return markup;
     };
 
     const displayAcceptingOrdersUntil = () => {
